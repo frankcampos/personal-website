@@ -81,6 +81,8 @@ const Home =() => {
                           // src={`${process.env.NEXT_PUBLIC_STRAPI_URL}${post.cover.url}`}
                           src={`${post.cover.url}`}
                           alt={post.title}
+                          width={500} // Provide a default width
+                          height={300} // Provide a default height
                           className="w-full h-full object-cover"
                         />
                       </div>

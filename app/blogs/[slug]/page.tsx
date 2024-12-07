@@ -90,6 +90,8 @@ const BlogPostPage = ({ params }: { params: Promise<{ slug: string }> }) => {
             src={`${post.cover.url}`}
             alt={post.title}
             className="rounded-lg w-full h-full object-cover"
+            width={500} // Provide a default width
+            height={300} // Provide a default height
           />
         </div>
       )}
