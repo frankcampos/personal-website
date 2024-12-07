@@ -48,10 +48,10 @@ export default function Home() {
     setLoading(true); // Show loader while fetching
   };
 
-  const getImageUrl = (url: string | null): string => {
-    if (!url) return "/default-image.png"; // Use a default image for missing URLs
-    return url.startsWith("http") ? url : `${process.env.NEXT_PUBLIC_STRAPI_URL}${url}`;
-  };
+  // const getImageUrl = (url: string | null): string => {
+  //   if (!url) return "/default-image.png"; // Use a default image for missing URLs
+  //   return url.startsWith("http") ? url : `${post.cover.url}`;
+  // };
   
 
   return (
