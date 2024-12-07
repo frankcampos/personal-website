@@ -4,6 +4,9 @@ import { UserBlogPostData } from "./types";
 
 export const api: AxiosInstance = axios.create({
   baseURL: `${process.env.NEXT_PUBLIC_STRAPI_URL}`,
+   headers: {
+     'Authorization': `Bearer ${process.env.NEXT_PUBLIC_STRAPI_TOKEN}`
+   }, // Token from .env
 });
 
 export const getAllPosts = async (

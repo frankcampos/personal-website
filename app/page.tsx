@@ -48,6 +48,12 @@ export default function Home() {
     setLoading(true); // Show loader while fetching
   };
 
+  const getImageUrl = (url: string | null): string => {
+    if (!url) return "/default-image.png"; // Use a default image for missing URLs
+    return url.startsWith("http") ? url : `${process.env.NEXT_PUBLIC_STRAPI_URL}${url}`;
+  };
+  
+
   return (
     <div className="max-w-screen-lg mx-auto p-4">
       {loading && (
@@ -70,7 +76,9 @@ export default function Home() {
                     {post.cover?.url && (
                       <div className="relative h-36 w-full">
                         <img
-                          src={`${process.env.NEXT_PUBLIC_STRAPI_URL}${post.cover.url}`}
+                        // process.env.NEXT_PUBLIC_STRAPI_URL/uploads
+                          // src={`${process.env.NEXT_PUBLIC_STRAPI_URL}${post.cover.url}`}
+                          src={`${post.cover.url}`}
                           alt={post.title}
                           className="w-full h-full object-cover"
                         />
