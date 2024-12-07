@@ -14,6 +14,7 @@ import { FaClipboard } from "react-icons/fa"; // Import your chosen icon
 import Loader from "../../component/Loader"
 import moment from "moment";
 import { toast } from "react-hot-toast";
+import Image from "next/image";
 
 
 const handleCopyCode = async (code: string) => {
@@ -85,7 +86,7 @@ const BlogPostPage = ({ params }: { params: Promise<{ slug: string }> }) => {
 
       {post.cover && (
         <div className="relative h-72 w-full my-4">
-          <img
+          <Image
             src={`${post.cover.url}`}
             alt={post.title}
             className="rounded-lg w-full h-full object-cover"

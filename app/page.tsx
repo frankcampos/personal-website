@@ -1,15 +1,16 @@
 // src/app/page.tsx
 /* eslint-disable @next/next/no-img-element */
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import { getAllPosts } from "@/lib/api";
 import { BlogPost } from "@/lib/types";
 import Loader from "./component/Loader";
 import Pagination from "./component/Pagination";
+import Image from "next/image";
 
-export default function Home() {
+const Home =() => {
   const [posts, setPosts] = useState<BlogPost[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -75,7 +76,7 @@ export default function Home() {
                   <Link href={`/blogs/${post.slug}`} className="block">
                     {post.cover?.url && (
                       <div className="relative h-36 w-full">
-                        <img
+                        <Image
                         // process.env.NEXT_PUBLIC_STRAPI_URL/uploads
                           // src={`${process.env.NEXT_PUBLIC_STRAPI_URL}${post.cover.url}`}
                           src={`${post.cover.url}`}
@@ -114,3 +115,11 @@ export default function Home() {
     </div>
   );
 }
+
+const HomeWrapper = () => (
+  <Suspense fallback={<div>Loading...</div>}>
+    <Home />
+  </Suspense>
+);
+
+export default HomeWrapper;

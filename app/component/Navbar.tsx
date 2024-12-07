@@ -1,6 +1,6 @@
 // src/components/Navbar.tsx
 "use client";
-import React, { useState } from "react";
+import React, { useState, Suspense } from "react";
 import Link from "next/link";
 import { FaPen, FaSearch, FaTimes } from "react-icons/fa";
 import { useSearchParams, usePathname, useRouter } from "next/navigation";
@@ -86,4 +86,9 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+const NavbarWrapper = () => (
+  <Suspense fallback={<div>Loading...</div>}>
+    <Navbar />
+  </Suspense>
+);
+export default NavbarWrapper;

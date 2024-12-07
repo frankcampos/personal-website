@@ -1,13 +1,18 @@
-    // app/write/page.tsx.
+// app/write/page.tsx
 "use client";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { FaArrowLeft } from "react-icons/fa";
 import slugify from "react-slugify";
-import MarkdownEditor from "@uiw/react-markdown-editor";
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import { createPost, uploadImage } from "@/lib/api";
 import { toast } from "react-hot-toast";
+
+// Dynamically import MarkdownEditor with no SSR
+const MarkdownEditor = dynamic(() => import("@uiw/react-markdown-editor"), {
+  ssr: false,
+});
 
 const WritePost = () => {
   const [markdownContent, setMarkdownContent] = useState("");
@@ -46,21 +51,20 @@ const WritePost = () => {
       // Step 1: Create the blog post without the cover image
       const postResponse = await createPost(postData);
       const postId = postResponse.id;
-      console.log(postId);
 
       // Step 2: Upload cover image (if provided) and associate with blog post
       if (coverImage) {
         const uploadedImage = await uploadImage(coverImage, postId);
-        console.log("Image uploaded:", uploadedImage);
+        console.log(uploadedImage);
       }
 
       // Redirect after successful post creation
       router.push(`/blogs/${postSlug}`);
       toast.success("Post created successfully");
     } catch (error) {
-      console.error("Failed to create post:", error);
       setError("Failed to create post. Please try again.");
       toast.error("Failed to create post. Please try again.");
+      console.log(error);
     } finally {
       setIsLoading(false);
     }
@@ -78,7 +82,6 @@ const WritePost = () => {
       <h1 className="text-xl font-bold mb-4 text-gray-100 font-jet-brains">
         Create New Post
       </h1>
-      {/* Render a message if there is an error */}
       {error && (
         <div className="mb-4 p-3 bg-red-600 text-white rounded-md">{error}</div>
       )}
@@ -124,7 +127,7 @@ const WritePost = () => {
         <MarkdownEditor
           value={markdownContent}
           height="200px"
-          onChange={(value:string) => setMarkdownContent(value)}
+          onChange={(value) => setMarkdownContent(value)}
           className="bg-[#161b22] text-gray-100"
         />
       </div>
