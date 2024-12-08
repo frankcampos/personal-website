@@ -1,4 +1,3 @@
-// app/write/page.tsx
 "use client";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
@@ -20,11 +19,11 @@ const WritePost = () => {
   const [description, setDescription] = useState("");
   const [coverImage, setCoverImage] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
-  const [isLoading, setIsLoading] = useState(false); // Loading state
-  const [error, setError] = useState<string | null>(null); // Error state
+  const [password, setPassword] = useState<string>("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const router = useRouter();
 
-  // Handle image upload and preview
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       const selectedImage = e.target.files[0];
@@ -33,14 +32,19 @@ const WritePost = () => {
     }
   };
 
-  // Handle post submission
   const handleSubmit = async () => {
     setIsLoading(true);
     setError(null);
+
+    if (password !== process.env.NEXT_PUBLIC_ADMIN_PASSWORD) {
+      setError("Incorrect password.");
+      toast.error("Incorrect password.");
+      setIsLoading(false);
+      return;
+    }
+
     try {
-      // Create slug from the title
       const postSlug = slugify(title);
-      // Create the post initially without the image
       const postData = {
         title,
         description,
@@ -48,96 +52,114 @@ const WritePost = () => {
         content: markdownContent,
       };
 
-      // Step 1: Create the blog post without the cover image
       const postResponse = await createPost(postData);
       const postId = postResponse.id;
 
-      // Step 2: Upload cover image (if provided) and associate with blog post
       if (coverImage) {
-        const uploadedImage = await uploadImage(coverImage, postId);
-        console.log(uploadedImage);
+        await uploadImage(coverImage, postId);
       }
 
-      // Redirect after successful post creation
       router.push(`/blogs/${postSlug}`);
-      toast.success("Post created successfully");
-    } catch (error) {
+      toast.success("Post created successfully!");
+    } catch (err) {
       setError("Failed to create post. Please try again.");
-      toast.error("Failed to create post. Please try again.");
-      console.log(error);
+      toast.error("Failed to create post.");
+      console.error(err);
     } finally {
       setIsLoading(false);
     }
   };
 
   return (
-    <div className="max-w-screen-md mx-auto p-4">
+    <div className="max-w-screen-md mx-auto p-6 bg-gray-900 text-gray-100 rounded-lg shadow-lg">
       <button
         onClick={() => router.back()}
-        className="text-tennessee-orange hover:text-white mb-6 flex items-center space-x-2"
+        className="text-tennessee-orange hover:text-gray-200 mb-6 flex items-center space-x-2"
       >
         <FaArrowLeft /> <span>Back</span>
       </button>
 
-      <h1 className="text-xl font-bold mb-4 text-gray-100 font-jet-brains">
+      <h1 className="text-3xl font-bold mb-6 text-center text-gray-200">
         Create New Post
       </h1>
+
       {error && (
         <div className="mb-4 p-3 bg-red-600 text-white rounded-md">{error}</div>
       )}
 
+      {/* Title */}
       <div className="mb-4">
+        <label className="block text-lg font-medium mb-2">Title</label>
         <input
           type="text"
-          placeholder="Enter a Title"
+          placeholder="Enter a title"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          className="w-full p-2 font-jet-brains text-3xl font-semibold bg-[#161b22] text-gray-100 border-b border-gray-600 focus:border-purple-500 focus:outline-none placeholder-gray-400"
+          className="w-full p-3 rounded-md bg-gray-800 text-gray-100 border border-gray-700 focus:border-blue-500 focus:outline-none"
         />
       </div>
+
+      {/* Description */}
       <div className="mb-4">
+        <label className="block text-lg font-medium mb-2">Description</label>
         <textarea
-          placeholder="Description"
+          placeholder="Enter a short description"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
-          className="w-full p-2 font-jet-brains bg-[#161b22] font-semibold text-gray-100 border-b border-gray-600 focus:border-purple-500 focus:outline-none placeholder-gray-400"
+          className="w-full p-3 rounded-md bg-gray-800 text-gray-100 border border-gray-700 focus:border-blue-500 focus:outline-none"
         />
       </div>
-      <div className="mb-6">
+
+      {/* Password */}
+      <div className="mb-4">
+        <label className="block text-lg font-medium mb-2">Password</label>
+        <input
+          type="password"
+          placeholder="Enter admin password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          className="w-full p-3 rounded-md bg-gray-800 text-gray-100 border border-gray-700 focus:border-blue-500 focus:outline-none"
+        />
+      </div>
+
+      {/* Image Upload */}
+      <div className="mb-4">
+        <label className="block text-lg font-medium mb-2">Cover Image</label>
         <input
           type="file"
           accept="image/*"
           onChange={handleImageChange}
-          className="w-full bg-[#161b22] text-gray-100"
+          className="w-full p-2 bg-gray-800 rounded-md text-gray-400"
         />
-        {imagePreview && (
-          <div className="mt-4">
-            <Image
-              src={imagePreview}
-              alt="Selected Cover"
-              width="100"
-              height="100"
-              className="w-full h-auto rounded-md"
-            />
-          </div>
+        {imagePreview && imagePreview.trim() !== '' && (
+          <Image
+            src={imagePreview}
+            alt="Preview"
+            width={400}
+            height={200}
+            className="mt-4 rounded-md"
+          />
         )}
       </div>
 
+      {/* Markdown Editor */}
       <div className="mb-6">
+        <label className="block text-lg font-medium mb-2">Content</label>
         <MarkdownEditor
           value={markdownContent}
-          height="200px"
           onChange={(value) => setMarkdownContent(value)}
-          className="bg-[#161b22] text-gray-100"
+          height="300px"
+          className="rounded-md"
         />
       </div>
 
+      {/* Submit Button */}
       <button
         onClick={handleSubmit}
-        disabled={isLoading || (!title && !description)}
-        className="bg-white-900 text-tennessee-orange py-2 px-4 rounded-md hover:bg-white"
+        disabled={isLoading || !password || !title}
+        className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 rounded-md text-lg transition duration-300 disabled:bg-gray-600"
       >
-        {isLoading ? "Loading" : "Post"}
+        {isLoading ? "Posting..." : "Create Post"}
       </button>
     </div>
   );
