@@ -13,7 +13,12 @@ const nextConfig: NextConfig = {
   reactStrictMode: true,
   // swcMinify: true,
   images: {
-    domains: ['delicate-kindness-f489b53ee0.media.strapiapp.com'], // Add your image domain here
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "delicate-kindness-f489b53ee0.media.strapiapp.com",
+      },
+    ],
   },
 };
 
