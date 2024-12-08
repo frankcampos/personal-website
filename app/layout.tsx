@@ -17,10 +17,43 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "FRANK PARADA CAMPOS WEBSITE",
+  title: "Frank Campos | Junior Full-Stack Web Developer & Personal Blog",
   description:
-    "Your go-to resource for all things Strapi—explore best practices, tips, and community insights to elevate your projects",
+    "I'm Frank Campos, a Junior Full-Stack Web Developer. Explore my blog, software projects, and ideas as I grow my skills in web development.",
+  keywords: [
+    "Frank Campos",
+    "Frank Parada Campos",
+    "Junior Full-Stack Developer",
+    "web developer portfolio",
+    "personal blog",
+    "software projects",
+    "frontend development",
+    "backend development",
+    "React",
+    "Django",
+    "web development ideas",
+    "portfolio website",
+  ],
+  authors: [{ name: 'Frank Parada Campos', url: 'https://www.frankcampos.com' }],
+  
+  openGraph: {
+    title: "Frank Campos | Junior Full-Stack Web Developer & Blog",
+    description:
+      "Welcome to my personal website! I'm a Junior Full-Stack Developer sharing my blog, ideas, and software projects.",
+    url: "https://www.frankcampos.com",
+    type: "website",
+    images: [
+      {
+        url: "https://www.frankcampos.com/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Frank Campos - Junior Full-Stack Developer",
+      },
+    ],
+  },
 };
+
+export const viewport ={ width: 'device-width', initialScale: 1.0 }
 
 export default function RootLayout({
   children,
