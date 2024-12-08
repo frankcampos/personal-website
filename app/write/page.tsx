@@ -74,7 +74,7 @@ const WritePost = () => {
     <div className="max-w-screen-md mx-auto p-4">
       <button
         onClick={() => router.back()}
-        className="text-purple-400 hover:text-purple-500 mb-6 flex items-center space-x-2"
+        className="text-tennessee-orange hover:text-white mb-6 flex items-center space-x-2"
       >
         <FaArrowLeft /> <span>Back</span>
       </button>
@@ -135,7 +135,7 @@ const WritePost = () => {
       <button
         onClick={handleSubmit}
         disabled={isLoading || (!title && !description)}
-        className="bg-purple-600 text-gray-100 py-2 px-4 rounded-md hover:bg-purple-500"
+        className="bg-white-900 text-tennessee-orange py-2 px-4 rounded-md hover:bg-white"
       >
         {isLoading ? "Loading" : "Post"}
       </button>

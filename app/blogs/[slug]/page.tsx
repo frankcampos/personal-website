@@ -63,7 +63,7 @@ const BlogPostPage = ({ params }: { params: Promise<{ slug: string }> }) => {
   console.log(post);
   return (
     <div className="max-w-screen-md mx-auto p-4">
-      <h1 className="text-4xl leading-[60px] capitalize text-center font-bold text-purple-800 font-jet-brains">
+      <h1 className="text-4xl leading-[60px] capitalize text-center font-bold text-white font-jet-brains">
         {post.title}
       </h1>
       <div className="w-full flex items-center justify-center font-light">
@@ -138,7 +138,7 @@ const BlogPostPage = ({ params }: { params: Promise<{ slug: string }> }) => {
       </Markdown>
       <button
         onClick={() => router.back()}
-        className="text-purple-800 mt-4 inline-block hover:underline"
+        className="text-tennessee-orange mt-4 inline-block hover:underline"
       >
         Back to Blogs
       </button>

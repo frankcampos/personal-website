@@ -12,6 +12,7 @@ export default {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        'tennessee-orange': "#FF8200", // Enclose the color value in quotes
       },
     },
   },
@@ -19,3 +20,4 @@ export default {
     typography,
   ],
 } satisfies Config;
+
