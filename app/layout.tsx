@@ -17,7 +17,7 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "FRANK CAMPOS.BLOG",
+  title: "FRANK PARADA CAMPOS WEBSITE",
   description:
     "Your go-to resource for all things Strapi—explore best practices, tips, and community insights to elevate your projects",
 };

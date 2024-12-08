@@ -27,13 +27,13 @@ const Navbar = () => {
       <nav className="flex justify-between items-center mb-2 p-4 ">
         <div className="flex items-center gap-4">
           <Link href="/">
-            <h1 className="font-bold text-xl text-purple-600 font-jet-brains">
-              DEV.BLOG
+            <h1 className="font-bold text-xl text-tennessee-orange font-jet-brains">
+              FRANQ.BLOG
             </h1>
           </Link>
           <button
             onClick={() => setSearchOpen((prev) => !prev)}
-            className="text-xl text-white hover:text-purple-400 transition-colors"
+            className="text-xl text-white hover:text-tennessee-orange transition-colors"
           >
             {searchOpen ? <FaTimes /> : <FaSearch />}
           </button>
@@ -51,7 +51,7 @@ const Navbar = () => {
               />
               <button
                 onClick={handleSearchSubmit}
-                className="bg-purple-600 text-sm hover:bg-purple-500 text-white px-2 py-1 rounded-md transition-colors"
+                className="text-tennessee-orange text-sm hover:text-tennessee-orange text-white px-2 py-1 rounded-md transition-colors"
               >
                 Search
               </button>
@@ -63,8 +63,8 @@ const Navbar = () => {
           <li
             className={
               pathname === "/"
-                ? "text-purple-400"
-                : "text-white hover:text-purple-400"
+                ? "text-tennessee-orange hover:text-white"
+                : "text-tennessee-orange hover:text-white"
             }
           >
             <Link href="/">Blogs</Link>
@@ -72,12 +72,12 @@ const Navbar = () => {
           <li
             className={
               pathname === "/write"
-                ? "text-purple-400"
-                : "text-white hover:text-purple-400"
+                ? "text-tennessee-orange hover:text-white"
+                : "text-tennessee-orange hover:text-white"
             }
           >
             <Link href="/write">
-              <FaPen className="hover:text-purple-400" />
+              <FaPen className="hover:text-white" />
             </Link>
           </li>
         </ul>
