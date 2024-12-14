@@ -1,6 +1,7 @@
 // app/layout.tsx
 import type { Metadata } from "next";
 import Navbar from "./component/Navbar";
+import Footer from "./component/Footer"
 import localFont from "next/font/local";
 import { Toaster } from "react-hot-toast";
 import "./globals.css";
@@ -67,7 +68,11 @@ export default function RootLayout({
       >
         <Navbar />
         {children}
+     
+        
+        <Footer />
         <Toaster />
+        
       </body>
     </html>
   );
