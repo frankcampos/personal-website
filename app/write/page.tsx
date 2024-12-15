@@ -19,6 +19,7 @@ const WritePost = () => {
   const [description, setDescription] = useState("");
   const [coverImage, setCoverImage] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
+  const [postId, setPostID] = useState<number | null>(null);
   const [password, setPassword] = useState<string>("");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -36,13 +37,6 @@ const WritePost = () => {
     setIsLoading(true);
     setError(null);
 
-    if (password !== process.env.NEXT_PUBLIC_ADMIN_PASSWORD) {
-      setError("Incorrect password.");
-      toast.error("Incorrect password.");
-      setIsLoading(false);
-      return;
-    }
-
     try {
       const postSlug = slugify(title);
       const postData = {
@@ -52,11 +46,23 @@ const WritePost = () => {
         content: markdownContent,
       };
 
-      const postResponse = await createPost(postData);
-      const postId = postResponse.id;
+      const response = await fetch('/api/createPost', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ password, postData }),
+      });
+
+      if (response.ok) {
+        const postResponse = await response.json();
+        setPostID(postResponse.id)
+      }
 
       if (coverImage) {
-        await uploadImage(coverImage, postId);
+        if (postId !== null) {
+          await uploadImage(coverImage, postId);
+        }
       }
 
       router.push(`/blogs/${postSlug}`);
