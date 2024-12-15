@@ -4,9 +4,9 @@
 import { useEffect, useState, Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import Link from "next/link";
-import { getAllPosts } from "@/lib/api";
 import { BlogPost } from "@/lib/types";
 import Loader from "./component/Loader";
+import Footer from "./component/Footer";
 import Pagination from "./component/Pagination";
 import Image from "next/image";
 
@@ -16,20 +16,25 @@ const Home =() => {
   const [error, setError] = useState<string | null>(null);
   const [totalPages, setTotalPages] = useState(1); // Track total number of pages
 
-  const searchParams = useSearchParams();
+  const searchParams  = useSearchParams();
   const router = useRouter();
 
   // Get the search query and page from the URL params
-  const searchQuery = searchParams.get("search") ?? "";
-  const pageParam = searchParams.get("page");
+  const searchQuery = searchParams?.get("search") ?? "";
+  const pageParam = searchParams?.get("page");
   const currentPage = pageParam ? parseInt(pageParam) : 1; // Default to page 1 if not present
 
   useEffect(() => {
     const fetchPosts = async (page: number) => {
       try {
-        const { posts, pagination } = await getAllPosts(page, searchQuery);
-        setPosts(posts);
-        setTotalPages(pagination.pageCount); // Set total pages
+        const response = await fetch(`/api/getAllPosts?page=${page}&searchQuery=${searchQuery}`);
+        const data = await response.json();
+        if (response.ok) {
+          setPosts(data.posts);
+          setTotalPages(data.pagination.pageCount); // Set total pages
+        } else {
+          setError(data.message || "Error fetching posts.");
+        }
       } catch (error) {
         setError("Error fetching posts.");
         console.error("Error fetching posts:", error);
@@ -37,13 +42,14 @@ const Home =() => {
         setLoading(false);
       }
     };
+    
 
     fetchPosts(currentPage);
   }, [currentPage, searchQuery]); // Re-fetch when page or search query changes
 
   const handlePageChange = (newPage: number) => {
     // Update the page parameter in the URL
-    const newParams = new URLSearchParams(searchParams.toString());
+    const newParams = new URLSearchParams(searchParams?.toString() || "");
     newParams.set("page", newPage.toString());
     router.push(`?${newParams.toString()}`);
     setLoading(true); // Show loader while fetching
@@ -56,7 +62,7 @@ const Home =() => {
   
 
   return (
-    <div className="max-w-screen-lg mx-auto p-4 min-h-screen">
+    <><div className="max-w-screen-lg mx-auto p-4 min-h-screen">
       {loading && (
         <div className="w-full flex items-center justify-center">
           <Loader />
@@ -77,14 +83,13 @@ const Home =() => {
                     {post.cover?.url && (
                       <div className="relative h-36 w-full">
                         <Image
-                        // process.env.NEXT_PUBLIC_STRAPI_URL/uploads
+                          // process.env.NEXT_PUBLIC_STRAPI_URL/uploads
                           // src={`${process.env.NEXT_PUBLIC_STRAPI_URL}${post.cover.url}`}
                           src={`${post.cover.url}`}
                           alt={post.title}
                           width={500} // Provide a default width
                           height={300} // Provide a default height
-                          className="w-full h-full object-cover"
-                        />
+                          className="w-full h-full object-cover" />
                       </div>
                     )}
                     <div className="p-4">
@@ -114,7 +119,7 @@ const Home =() => {
           />
         </>
       )}
-    </div>
+    </div><Footer /></>
   );
 }
 

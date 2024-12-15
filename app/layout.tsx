@@ -54,7 +54,7 @@ export const metadata: Metadata = {
   },
 };
 
-export const viewport ={ width: 'device-width', initialScale: 1.0 }
+export const viewport ={ width: 'device-width', initialScale: 1 }
 
 export default function RootLayout({
   children,
@@ -62,15 +62,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" data-color-mode="dark">
+    <html lang="en" data-color-mode="dark" className="h-full">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased `}
       >
         <Navbar />
         {children}
      
         
-        <Footer />
         <Toaster />
         
       </body>

@@ -15,7 +15,7 @@ const Navbar = () => {
 
   // Handle search query submission
   const handleSearchSubmit = () => {
-    const params = new URLSearchParams(searchParams);
+    const params = searchParams ? new URLSearchParams(searchParams.toString()) : new URLSearchParams();
     if (searchQuery) params.set("search", searchQuery);
     else params.delete("search");
     // Always routes with the search query
@@ -56,7 +56,7 @@ const Navbar = () => {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search posts..."
-                defaultValue={searchParams.get("search")?.toString()}
+                defaultValue={searchParams ? searchParams.get("search")?.toString() : ""}
                 className="bg-gray-800 appearance-none placeholder:text-sm placeholder:font-normal text-sm text-white placeholder-gray-400 border-b-2 border-purple-500 focus:border-purple-300 outline-none px-2 py-1 rounded-md"
               />
               <button
