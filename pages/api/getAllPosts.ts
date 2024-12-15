@@ -1,5 +1,6 @@
 import axios, { AxiosInstance } from "axios";
 import type { NextApiRequest, NextApiResponse } from "next";
+import { BlogPostResponse } from "@/lib/types";
 
 export const api: AxiosInstance = axios.create({
   baseURL: `${process.env.STRAPI_URL}`,
@@ -9,8 +10,8 @@ export const api: AxiosInstance = axios.create({
 });
 
 type ResponseData = {
-  posts?: any[];
-  pagination?: any;
+  posts?: BlogPostResponse['data'];
+  pagination?: number;
   message?: string;
 };
 
