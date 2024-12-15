@@ -5,7 +5,7 @@ import { FaArrowLeft } from "react-icons/fa";
 import slugify from "react-slugify";
 import dynamic from "next/dynamic";
 import Image from "next/image";
-import { createPost, uploadImage } from "@/lib/api";
+import { uploadImage } from "@/lib/api";
 import { toast } from "react-hot-toast";
 
 // Dynamically import MarkdownEditor with no SSR
