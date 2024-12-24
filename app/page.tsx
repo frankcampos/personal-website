@@ -62,7 +62,7 @@ const Home =() => {
   
 
   return (
-    <><div className="max-w-screen-lg mx-auto p-4 h-full overflow-y-auto">
+    <><div className="max-w-screen-lg mx-auto p-4 h-[calc(100vh-200px)] overflow-y-auto">
       {loading && (
         <div className="w-full flex items-center justify-center">
           <Loader />
