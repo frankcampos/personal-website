@@ -2,6 +2,7 @@
 import type { Metadata } from "next";
 import Navbar from "./component/Navbar";
 import { Toaster } from "react-hot-toast"
+import { GoogleAnalytics } from '@next/third-parties/google'
 import localFont from "next/font/local";
 import "./globals.css";
 
@@ -70,6 +71,7 @@ export default function RootLayout({
      
         
         <Toaster />
+        <GoogleAnalytics gaId="G-WG3GY3KY7R" />
         
       </body>
     </html>

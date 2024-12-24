@@ -10,6 +10,7 @@ import Footer from "./component/Footer";
 import Pagination from "./component/Pagination";
 import Image from "next/image";
 
+
 const Home =() => {
   const [posts, setPosts] = useState<BlogPost[]>([]);
   const [loading, setLoading] = useState(true);
