@@ -86,7 +86,7 @@ const Navbar = () => {
             : 'text-white hover:text-tennessee-orange'
           }
           >
-            <Link href="/">About Me</Link>
+            <Link href="/about_me">About Me</Link>
           </li>
           <li
             className={
