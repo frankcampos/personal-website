@@ -1,6 +1,6 @@
 // src/components/Pagination.tsx
-import React from "react";
-import { FaArrowLeft, FaArrowRight } from "react-icons/fa"; // Import arrow icons from react-icons
+import React from 'react';
+import { FaArrowLeft, FaArrowRight } from 'react-icons/fa'; // Import arrow icons from react-icons
 
 interface PaginationProps {
   currentPage: number;
@@ -20,8 +20,8 @@ const Pagination: React.FC<PaginationProps> = ({
         onClick={() => onPageChange(currentPage - 1)}
         className={`px-4 py-2 bg-white text-tennessee-orange rounded ${
           currentPage === 1
-            ? "opacity-50 cursor-not-allowed"
-            : "hover:bg-purple-600"
+            ? 'opacity-50 cursor-not-allowed'
+            : 'hover:bg-purple-600'
         }`}
       >
         <FaArrowLeft /> {/* Previous button icon */}
@@ -34,8 +34,8 @@ const Pagination: React.FC<PaginationProps> = ({
         onClick={() => onPageChange(currentPage + 1)}
         className={`px-4 py-2 bg-white text-tennessee-orange rounded ${
           currentPage === totalPages || currentPage > totalPages
-            ? "opacity-50 cursor-not-allowed"
-            : "hover:bg-purple-600"
+            ? 'opacity-50 cursor-not-allowed'
+            : 'hover:bg-purple-600'
         }`}
       >
         <FaArrowRight /> {/* Next button icon */}
