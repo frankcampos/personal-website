@@ -1,28 +1,27 @@
 // app/blogs/[slug]/page.tsx.
-"use client";
-import { useEffect, useState } from "react";
-import { getPostBySlug } from "../../../lib/api"; // Import your API function
-import { useRouter } from "next/navigation";
-import { BlogPost } from "@/lib/types";
-import Markdown from "react-markdown";
-import remarkGfm from "remark-gfm";
-import rehypeRaw from "rehype-raw";
-import { use } from "react";
-import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
-import { dracula } from "react-syntax-highlighter/dist/cjs/styles/prism";
-import { FaClipboard } from "react-icons/fa"; // Import your chosen icon
-import Loader from "../../component/Loader"
-import moment from "moment";
-import { toast } from "react-hot-toast";
-import Image from "next/image";
-
+'use client';
+import { useEffect, useState } from 'react';
+import { getPostBySlug } from '../../../lib/api'; // Import your API function
+import { useRouter } from 'next/navigation';
+import { BlogPost } from '@/lib/types';
+import Markdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
+import rehypeRaw from 'rehype-raw';
+import { use } from 'react';
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { dracula } from 'react-syntax-highlighter/dist/cjs/styles/prism';
+import { FaClipboard } from 'react-icons/fa'; // Import your chosen icon
+import Loader from '../../component/Loader';
+import moment from 'moment';
+import { toast } from 'react-hot-toast';
+import Image from 'next/image';
 
 const handleCopyCode = async (code: string) => {
   try {
     await navigator.clipboard.writeText(code);
-    toast.success("Code copied to clipboard!"); // Show toast on error
+    toast.success('Code copied to clipboard!'); // Show toast on error
   } catch (err) {
-    console.error("Failed to copy code: ", err);
+    console.error('Failed to copy code: ', err);
   }
 };
 
@@ -41,7 +40,7 @@ const BlogPostPage = ({ params }: { params: Promise<{ slug: string }> }) => {
           const fetchedPost = await getPostBySlug(slug);
           setPost(fetchedPost);
         } catch (err) {
-          setError("Error fetching post.");
+          setError('Error fetching post.');
           console.log(err);
         } finally {
           setLoading(false);
@@ -87,7 +86,9 @@ const BlogPostPage = ({ params }: { params: Promise<{ slug: string }> }) => {
       {post.cover && (
         <div className="relative h-72 w-full my-4">
           <Image
-            src={`${post.cover.url}`}
+            src={`${process.env.NEXT_PUBLIC_STRAPI_URL?.replace(/\/$/, '')}${
+              post.cover.url
+            }`}
             alt={post.title}
             className="rounded-lg w-full h-full object-cover"
             width={500} // Provide a default width
@@ -99,14 +100,14 @@ const BlogPostPage = ({ params }: { params: Promise<{ slug: string }> }) => {
         {post.description}
       </p>
       <Markdown
-        className={"leading-[40px] max-w-screen-lg prose prose-invert"}
+        className={'leading-[40px] max-w-screen-lg prose prose-invert'}
         remarkPlugins={[remarkGfm]}
         rehypePlugins={[rehypeRaw]}
         components={{
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           code({ inline, className, children, ...props }: any) {
-            const match = /language-(\w+)/.exec(className || "");
-            const codeString = String(children).replace(/\n$/, "");
+            const match = /language-(\w+)/.exec(className || '');
+            const codeString = String(children).replace(/\n$/, '');
 
             return !inline && match ? (
               <div className="relative">
