@@ -38,9 +38,9 @@ const AboutMeCard = () => {
         <div className="flex-1 p-6">
           <h1 className="text-4xl mt-3 font-bold">Frank Campos</h1>
           <p className="mt-4 text-gray-400">
-            I'm Frank Campos, a data engineer from Nashville, Tennessee, with a
-            background in full-stack web development. I'm currently a contractor
-            at Strata Decision Technology. When I'm not working, you can find me
+            I&apos;m Frank Campos, a data engineer from Nashville, Tennessee, with a
+            background in full-stack web development. I&apos;m currently a contractor
+            at Strata Decision Technology. When I&apos;m not working, you can find me
             at a hardcore punk festival, spending time with my daughters, or
             reading my favorite author, Jorge Luis Borges. As a proud
             Salvadoran, I also love eating pupusas.
