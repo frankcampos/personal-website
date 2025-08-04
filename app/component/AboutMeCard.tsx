@@ -38,12 +38,12 @@ const AboutMeCard = () => {
         <div className="flex-1 p-6">
           <h1 className="text-4xl mt-3 font-bold">Frank Campos</h1>
           <p className="mt-4 text-gray-400">
-            Latino, living in Nashville since 2006, and currently seeking a
-            junior full-stack web developer position or an internship. I love
-            learning new technologies and am currently focusing on TypeScript,
-            MongoDB, React Query, and more. I’ve worked in various trades,
-            mainly as a painter, and have been using Linux since 2015 after
-            rescuing an old laptop when I could no longer use Windows.
+            I'm Frank Campos, a data engineer from Nashville, Tennessee, with a
+            background in full-stack web development. I'm currently a contractor
+            at Strata Decision Technology. When I'm not working, you can find me
+            at a hardcore punk festival, spending time with my daughters, or
+            reading my favorite author, Jorge Luis Borges. As a proud
+            Salvadoran, I also love eating pupusas.
           </p>
           <button
             disabled={loading}
