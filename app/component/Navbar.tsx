@@ -79,12 +79,21 @@ const Navbar = () => {
           </li>
           <li
             className={
-              pathname === '/'
-                ? 'text-white hover:text-tennessee-orange'
+              pathname === '/about_me'
+                ? 'text-tennessee-orange hover:text-white'
                 : 'text-white hover:text-tennessee-orange'
             }
           >
             <Link href="/about_me">About Me</Link>
+          </li>
+          <li
+            className={
+              pathname === '/projects'
+                ? 'text-tennessee-orange hover:text-white'
+                : 'text-white hover:text-tennessee-orange'
+            }
+          >
+            <Link href="/projects">Projects</Link>
           </li>
           <li
             className={
